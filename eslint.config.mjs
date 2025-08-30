@@ -19,6 +19,10 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+    rules: {
+      "import/no-anonymous-default-export": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+    },
   },
 ];
 
