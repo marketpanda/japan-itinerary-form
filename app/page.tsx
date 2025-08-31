@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 import QuoteAppDemo from "./components/DragDropClient";
 import { Reorder } from "framer-motion";
 import Item from "./components/Item";
@@ -10,9 +10,11 @@ import ItineraryItem from "./components/Itinerary";
 import {Button, Calendar, CalendarCell, CalendarGrid, CalendarGridBody, CalendarGridHeader, CalendarHeaderCell, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Label, Popover} from 'react-aria-components';
 import type {ButtonProps, PopoverProps} from 'react-aria-components';
 import {ChevronLeft, ChevronRight, ChevronsUpDown} from 'lucide-react';
-
+import { useReactToPrint } from "react-to-print";
+import { v4 as uuidv4 } from "uuid"
 
 export interface Itinerary {
+  id: string,
   Date: string
   ActivityPlan: string
   Contact: string
@@ -21,27 +23,32 @@ export interface Itinerary {
 
 export default function Home() {
 
-  const initialItems = ["🍅 Tomato", "🥒 Cucumber", "🧀 Cheese", "🥬 Lettuce"];
-
-  const initialItineraries:Itinerary[] = [{
-      Date: new Date().toDateString(),
-      ActivityPlan: 'Disneyland',
-      Contact: '8888-8888',
-      Accommodation: 'Apa Hotel'
-    },
+  const initialItineraries:Itinerary[] = [
       {
-      Date: new Date().toDateString(),
-      ActivityPlan: 'Shrine',
-      Contact: '8888-8888',
-      Accommodation: 'Apa Hotel'
-      }
+        id: uuidv4(),
+        Date: new Date().toDateString(),
+        ActivityPlan: 'Disneyland',
+        Contact: '8888-8888',
+        Accommodation: 'Apa Hotel'
+      },
+      {
+        id: uuidv4(),
+        Date: new Date().toDateString(),
+        ActivityPlan: 'Shrine',
+        Contact: '8888-8888',
+        Accommodation: 'Apa Hotel'
+      },
+      ...Array.from({length: 8}, () => ({
+        id: uuidv4(),
+        Date: '',
+        ActivityPlan: '',
+        Contact: '',
+        Accommodation: ''
+      }))
   ]
   
   const [itineraries, setItineraries] = useState<Itinerary[] | []>(initialItineraries)
-
-  console.log('itineraries ', itineraries)
-  const [items, setItems] = useState(initialItems)
-
+  
      function RoundButton(props: ButtonProps) {
           return (
               <Button
@@ -71,25 +78,38 @@ export default function Home() {
               />
           );
       }
-  
+
+
+  const handleAfterPrint = () => {
+    console.log('after print')
+  }
+  const handleBeforePrint = async() => {
+    console.log('before print')
+  }
+ 
+  const componentRef = useRef(null)
+  const handlePrint = useReactToPrint({
+    contentRef: componentRef,
+    documentTitle: "Japan Itinerary",
+    onAfterPrint: handleAfterPrint,
+    onBeforePrint: handleBeforePrint
+  })
+
+ 
+
+ 
 
   return (
-    // <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-    <div>
-      {/* <QuoteAppDemo /> */}
-      {/* <Reorder.Group axis="y" onReorder={setItems} values={items}>
-        {items.map((item) => (
-          <Item key={item} item={item} />
-        ))}
-      </Reorder.Group> */}
-    
+     <div className="flex justify-center">
+      <div onClick={handlePrint} className="fixed top-2 right-2 cursor-pointer">print</div> 
       <Reorder.Group axis="y" onReorder={setItineraries} values={itineraries}>
         <div
-          className="bg-white shadow-lg mx-auto my-4 p-8"
+          className="bg-white shadow-lg mx-auto my-4 p-8 relative"
           style={{ width: "210mm", minHeight: "297mm" }}
+          ref={componentRef} 
         >
-           <DatePicker className="group flex flex-col gap-1 w-[200px]"> 
-                <Group className="flex rounded-lg bg-white/90 focus-within:bg-white group-open:bg-white transition pl-3 shadow-md text-gray-700 focus-visible:ring-2 ring-black">
+          <DatePicker className="group flex flex-col gap-1 w-[200px]"> 
+            <Group className="flex rounded-lg bg-white/90 focus-within:bg-white group-open:bg-white transition pl-3 shadow-md text-gray-700 focus-visible:ring-2 ring-black">
                     <DateInput className="flex flex-1 py-2">
                     {(segment) => (
                         <DateSegment
@@ -139,17 +159,19 @@ export default function Home() {
           <div>
             <div>Itinerary in Japan</div>
             <div>The itinerary in Japan of the visa applicant(s) is as follows</div>
-            <ul  className="flex w-full justify-between">
-              <li>Date</li>
-              <li>Activity</li>
-              <li>Contact</li>
-              <li>Accommodation</li>
-            </ul>
           </div>
 
-          {itineraries.map((itinerary) => (
-            <ItineraryItem key={itinerary.ActivityPlan} itinerary={itinerary} />
-          ))}
+          <div className="absolute top-[188px] w-[654px] justify-center left-1/2 -translate-x-1/2">
+            <ul  className="flex justify-between h-[44px] divide-x divide-black border-1 border-b-0">
+              <li className="w-[96px] flex items-end justify-center bg-white">Date</li>
+              <li className="w-[274px] flex items-end justify-center bg-white">Activity</li> 
+              <li className="w-[114px] flex items-end justify-center bg-white">Contact</li> 
+              <li className="w-[171px] flex items-end justify-center  bg-white">Accommodation</li>  
+            </ul>
+            {itineraries.map((itinerary) => (
+              <ItineraryItem key={itinerary.id} itinerary={itinerary} />
+            ))}
+          </div>
         </div>
       </Reorder.Group>
 

@@ -19,6 +19,17 @@
   }
 }
 
+/* @media print {
+  @page {
+    size: A4;
+    margin: 0px
+  }
+} */
+
+@media print {
+  ::placeholder { color: transparent !important }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

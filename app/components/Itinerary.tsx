@@ -52,13 +52,15 @@ const ItineraryItem = ({ itinerary }: Props) => {
         );
     }
 
-
+//  <ul  className="flex justify-between h-[44px] divide-x divide-black border-2 ">
+//               <li className="w-[96px] flex items-end justify-center">Date</li>
     const [startDate, setStartDate] = useState<Date | null>(new Date())
     return (
-        <Reorder.Item value={itinerary} id={itinerary} style={{ boxShadow, y }} className="flex">
+        <Reorder.Item value={itinerary} id={itinerary} style={{ boxShadow, y }}
+            className="flex h-[44px] divide-x divide-black border-b border-1">
             
-            <DatePicker className="group flex flex-col gap-1 w-[200px]"> 
-                <Group className="flex rounded-lg bg-white/90 focus-within:bg-white group-open:bg-white transition pl-3 shadow-md text-gray-700 focus-visible:ring-2 ring-black">
+            <DatePicker className="group flex flex-col gap-1 w-[96px]"> 
+                <Group className="flex items-center justify-center">
                     <DateInput className="flex flex-1 py-2">
                     {(segment) => (
                         <DateSegment
@@ -67,8 +69,8 @@ const ItineraryItem = ({ itinerary }: Props) => {
                         />
                     )}
                     </DateInput>
-                    <Button className="outline-hidden px-3 flex items-center text-gray-700 transition border-0 border-solid border-l border-l-purple-200 bg-transparent rounded-r-lg pressed:bg-purple-100 focus-visible:ring-2 ring-black">
-                    <ChevronsUpDown className="w-4 h-4" />
+                    <Button className="w-full flex items-center justify-center text-gray-700 bg-white border-0 focus-visible:ring-2 ring-black">
+                        <ChevronsUpDown className="w-4 h-4" />
                     </Button>
                 </Group>
                 <MyPopover>
@@ -105,13 +107,10 @@ const ItineraryItem = ({ itinerary }: Props) => {
                 </MyPopover>
             </DatePicker> 
 
-            <input type='text' placeholder='Activity' />
-            <input type='text' placeholder='Contact' />
-            <input type='text' placeholder='Accommodation' />
-            {/* <span>{ itinerary.Date }</span>
-            <span>{ itinerary.ActivityPlan }</span>
-            <span>{ itinerary.Contact }</span>
-            <span>{ itinerary.Accommodation }</span> */}
+            <input className="w-[274px] justify-center text-center" type='text' placeholder='Activity' />
+            <input className="w-[114px] justify-center" type='text' placeholder='Contact' />
+            <input className="w-[171px] justify-center" type='text' placeholder='Accommodation' />
+          
         </Reorder.Item>
     )
 }
