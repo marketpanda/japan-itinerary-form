@@ -6,7 +6,7 @@ import { useRaisedShadow } from './use-raised-shadow'
 import { Itinerary } from '../page' 
 import "react-datepicker/dist/react-datepicker.css";
 
-import {Button, Calendar, CalendarCell, CalendarGrid, CalendarGridBody, CalendarGridHeader, CalendarHeaderCell, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Label, Popover} from 'react-aria-components';
+import {Button, Calendar, CalendarCell, CalendarGrid, CalendarGridBody, CalendarGridHeader, CalendarHeaderCell, DateInput, DatePicker, DateSegment, Dialog, Group, Heading, Popover} from 'react-aria-components';
 import type {ButtonProps, PopoverProps} from 'react-aria-components';
 import {ChevronLeft, ChevronRight, ChevronsUpDown} from 'lucide-react';
 
@@ -19,8 +19,6 @@ interface Props {
 const ItineraryItem = ({ itinerary }: Props) => {
     const y = useMotionValue(0)
     const boxShadow = useRaisedShadow(y)
-
-
 
     function RoundButton(props: ButtonProps) {
         return (
@@ -52,8 +50,6 @@ const ItineraryItem = ({ itinerary }: Props) => {
         );
     }
 
-//  <ul  className="flex justify-between h-[44px] divide-x divide-black border-2 ">
-//               <li className="w-[96px] flex items-end justify-center">Date</li>
     const [startDate, setStartDate] = useState<Date | null>(new Date())
     return (
         <Reorder.Item value={itinerary} id={itinerary} style={{ boxShadow, y }}
