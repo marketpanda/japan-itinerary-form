@@ -57,21 +57,21 @@ const ItineraryItem = ({ itinerary }: Props) => {
             
             <DatePicker className="bg-blue-50 group flex flex-col gap-1 w-[96px]"> 
                 <Group className="flex items-center justify-center">
-                    <DateInput className="flex flex-1 py-2 print:hidden">
+                    <DateInput className="flex flex-1 py-2">
                     {(segment) => { 
-                        const hideOnPrint = segment.isPlaceholder ? "print:hidden" : ""
+                         
                         console.log('segment ', segment)
                         return (
                             <DateSegment
                                 segment={segment}
-                                className={`px-0.5 tabular-nums outline-hidden text-[11px] focus:bg-violet-700 focus:text-white caret-transparent placeholder-shown:italic ${hideOnPrint} `}
+                                className={`px-0.5 tabular-nums outline-hidden text-[11px] focus:bg-violet-700 focus:text-white caret-transparent placeholder-shown:italic   `}
                             />
                         )
                     }
                     }
                     </DateInput>
-                    <Button className="w-full flex items-center justify-center text-gray-700 bg-white border-0 focus-visible:ring-2 ring-black">
-                        <ChevronsUpDown className="w-4 h-4  print:hidden" />
+                    <Button className="w-full flex items-center justify-center text-gray-700 bg-white border-0 focus-visible:ring-2 ring-black"> 
+                        <ChevronsUpDown className="w-3 h-3" />
                     </Button>
                 </Group>
                 <MyPopover>
