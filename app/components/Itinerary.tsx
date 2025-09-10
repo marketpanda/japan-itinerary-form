@@ -55,18 +55,23 @@ const ItineraryItem = ({ itinerary }: Props) => {
         <Reorder.Item value={itinerary} id={itinerary} style={{ boxShadow, y }}
             className="flex h-[44px] divide-x divide-black border-b border-1">
             
-            <DatePicker className="group flex flex-col gap-1 w-[96px]"> 
+            <DatePicker className="bg-blue-50 group flex flex-col gap-1 w-[96px]"> 
                 <Group className="flex items-center justify-center">
-                    <DateInput className="flex flex-1 py-2">
-                    {(segment) => (
-                        <DateSegment
-                        segment={segment}
-                        className="px-0.5 tabular-nums outline-hidden rounded-xs focus:bg-violet-700 focus:text-white caret-transparent placeholder-shown:italic"
-                        />
-                    )}
+                    <DateInput className="flex flex-1 py-2 print:hidden">
+                    {(segment) => { 
+                        const hideOnPrint = segment.isPlaceholder ? "print:hidden" : ""
+                        console.log('segment ', segment)
+                        return (
+                            <DateSegment
+                                segment={segment}
+                                className={`px-0.5 tabular-nums outline-hidden text-[11px] focus:bg-violet-700 focus:text-white caret-transparent placeholder-shown:italic ${hideOnPrint} `}
+                            />
+                        )
+                    }
+                    }
                     </DateInput>
                     <Button className="w-full flex items-center justify-center text-gray-700 bg-white border-0 focus-visible:ring-2 ring-black">
-                        <ChevronsUpDown className="w-4 h-4" />
+                        <ChevronsUpDown className="w-4 h-4  print:hidden" />
                     </Button>
                 </Group>
                 <MyPopover>
@@ -103,9 +108,9 @@ const ItineraryItem = ({ itinerary }: Props) => {
                 </MyPopover>
             </DatePicker> 
 
-            <input className="w-[274px] justify-center text-center" type='text' placeholder='Activity' />
-            <input className="w-[114px] justify-center" type='text' placeholder='Contact' />
-            <input className="w-[171px] justify-center" type='text' placeholder='Accommodation' />
+            <input className="w-[274px] bg-blue-50 justify-center text-sm text-center p-2 outline-0" type='text' placeholder='Activity' />
+            <input className="w-[113px] bg-blue-50 justify-center text-sm p-2 outline-0" type='text' placeholder='Contact' />
+            <input className="w-[171px] bg-blue-50 justify-center text-sm p-2  outline-0" type='text' placeholder='Accommodation' />
           
         </Reorder.Item>
     )

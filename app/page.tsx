@@ -104,69 +104,71 @@ export default function Home() {
       <div onClick={handlePrint} className="fixed top-2 right-2 cursor-pointer">print</div> 
       <Reorder.Group axis="y" onReorder={setItineraries} values={itineraries}>
         <div
-          className="bg-white shadow-lg mx-auto my-4 p-8 relative"
+          className="bg-white shadow-lg mx-auto my-4 p-8 relative border-1 border-dashed border-gray-300"
           style={{ width: "210mm", minHeight: "297mm" }}
           ref={componentRef} 
         >
-          <DatePicker className="group flex flex-col gap-1 w-[200px]"> 
-            <Group className="flex rounded-lg bg-white/90 focus-within:bg-white group-open:bg-white transition pl-3 shadow-md text-gray-700 focus-visible:ring-2 ring-black">
-                    <DateInput className="flex flex-1 py-2">
-                    {(segment) => (
-                        <DateSegment
-                        segment={segment}
-                        className="px-0.5 tabular-nums outline-hidden rounded-xs focus:bg-violet-700 focus:text-white caret-transparent placeholder-shown:italic"
-                        />
-                    )}
-                    </DateInput>
-                    <Button className="outline-hidden px-3 flex items-center text-gray-700 transition border-0 border-solid border-l border-l-purple-200 bg-transparent rounded-r-lg pressed:bg-purple-100 focus-visible:ring-2 ring-black">
-                    <ChevronsUpDown className="w-4 h-4" />
-                    </Button>
-                </Group>
-                <MyPopover>
-                    <Dialog className="p-6 text-gray-600">
-                    <Calendar>
-                        <header className="flex items-center gap-1 pb-4 px-1 font-serif w-full">
-                        <Heading className="flex-1 font-semibold text-2xl ml-2" />
-                        <RoundButton slot="previous">
-                            <ChevronLeft />
-                        </RoundButton>
-                        <RoundButton slot="next">
-                            <ChevronRight />
-                        </RoundButton>
-                        </header>
-                        <CalendarGrid className="border-spacing-1 border-separate">
-                        <CalendarGridHeader>
-                            {(day) => (
-                            <CalendarHeaderCell className="text-xs text-gray-500 font-semibold">
-                                {day}
-                            </CalendarHeaderCell>
-                            )}
-                        </CalendarGridHeader>
-                        <CalendarGridBody>
-                            {(date) => (
-                            <CalendarCell
-                                date={date}
-                                className="w-9 h-9 outline-hidden cursor-default rounded-full flex items-center justify-center outside-month:text-gray-300 hover:bg-gray-100 pressed:bg-gray-200 selected:bg-violet-700 selected:text-white focus-visible:ring-3 ring-violet-600/70 ring-offset-2"
-                            />
-                            )}
-                        </CalendarGridBody>
-                        </CalendarGrid>
-                    </Calendar>
-                    </Dialog>
-                </MyPopover>
-            </DatePicker> 
+          <div className="absolute top-[60px] w-[654px] justify-right text-right border-0 left-1/2 -translate-x-1/2">
+            <DatePicker className="absolute group flex flex-col gap-1 w-[180px] text-right right-0"> 
+              <Group className="flex  bg-white/90 focus-within:bg-white group-open:bg-white transition pl-3  text-gray-700 focus-visible:ring-2 border-1 ring-black">
+                      <DateInput className="flex flex-1 py-2">
+                      {(segment) => (
+                          <DateSegment
+                          segment={segment}
+                          className="px-0.5 tabular-nums outline-hidden rounded-xs focus:bg-violet-700 focus:text-white caret-transparent placeholder-shown:italic print:placeholder-shown:hidden"
+                          />
+                      )}
+                      </DateInput>
+                      <Button className="outline-hidden px-3 flex items-center text-gray-700 transition border-0 border-solid border-l border-l-purple-200 bg-transparent rounded-r-lg pressed:bg-purple-100 focus-visible:ring-2 ring-black">
+                      <ChevronsUpDown className="w-4 h-4" />
+                      </Button>
+                  </Group>
+                  <MyPopover>
+                      <Dialog className="p-6 text-gray-600">
+                      <Calendar>
+                          <header className="flex items-center gap-1 pb-4 px-1 font-serif w-full">
+                          <Heading className="flex-1 font-semibold text-2xl ml-2" />
+                          <RoundButton slot="previous">
+                              <ChevronLeft />
+                          </RoundButton>
+                          <RoundButton slot="next">
+                              <ChevronRight />
+                          </RoundButton>
+                          </header>
+                          <CalendarGrid className="border-spacing-1 border-separate">
+                          <CalendarGridHeader>
+                              {(day) => (
+                              <CalendarHeaderCell className="text-xs text-gray-500 font-semibold">
+                                  {day}
+                              </CalendarHeaderCell>
+                              )}
+                          </CalendarGridHeader>
+                          <CalendarGridBody>
+                              {(date) => (
+                              <CalendarCell
+                                  date={date}
+                                  className="w-9 h-9 outline-hidden cursor-default rounded-full flex items-center justify-center outside-month:text-gray-300 hover:bg-gray-100 pressed:bg-gray-200 selected:bg-violet-700 selected:text-white focus-visible:ring-3 ring-violet-600/70 ring-offset-2"
+                              />
+                              )}
+                          </CalendarGridBody>
+                          </CalendarGrid>
+                      </Calendar>
+                      </Dialog>
+                  </MyPopover>
+              </DatePicker> 
+           </div>
 
-          <div>
-            <div>Itinerary in Japan</div>
-            <div>The itinerary in Japan of the visa applicant(s) is as follows</div>
+          <div className="absolute top-[112px] w-[654px] justify-center left-1/2 -translate-x-1/2">
+            <div className="font-serif text-2xl text-center border-0 mb-4">Itinerary in Japan</div>
+            <div className="font-serif text-sm border-0">The itinerary in Japan of the visa applicant(s) is as follows</div>
           </div>
 
           <div className="absolute top-[188px] w-[654px] justify-center left-1/2 -translate-x-1/2">
             <ul  className="flex justify-between h-[44px] divide-x divide-black border-1 border-b-0">
-              <li className="w-[96px] flex items-end justify-center bg-white">Date</li>
-              <li className="w-[274px] flex items-end justify-center bg-white">Activity</li> 
-              <li className="w-[114px] flex items-end justify-center bg-white">Contact</li> 
-              <li className="w-[171px] flex items-end justify-center  bg-white">Accommodation</li>  
+              <li className="w-[96px] flex items-end justify-center bg-white font-serif text-sm">Date</li>
+              <li className="w-[274px] flex items-end justify-center bg-white font-serif text-sm">Activity</li> 
+              <li className="w-[114px] flex items-end justify-center bg-white font-serif text-sm">Contact</li> 
+              <li className="w-[171px] flex items-end justify-center  bg-white font-serif text-sm">Accommodation</li>  
             </ul>
             {itineraries.map((itinerary) => (
               <ItineraryItem key={itinerary.id} itinerary={itinerary} />
