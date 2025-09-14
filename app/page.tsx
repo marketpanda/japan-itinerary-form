@@ -95,16 +95,12 @@ export default function Home() {
     onBeforePrint: handleBeforePrint
   })
 
- 
-
- 
-
   return (
      <div className="flex justify-center">
       <div onClick={handlePrint} className="fixed top-2 right-2 cursor-pointer">print</div> 
       <Reorder.Group axis="y" onReorder={setItineraries} values={itineraries}>
         <div
-          className="bg-white shadow-lg mx-auto my-4 p-8 relative border-1 border-dashed border-gray-300"
+          className="a4-sheet bg-white relative border-1 border-dashed border-gray-300 overflow-clip"
           style={{ width: "210mm", minHeight: "297mm" }}
           ref={componentRef} 
         >
